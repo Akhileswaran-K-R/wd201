@@ -8,12 +8,12 @@
 <body>
    <h1>Registration</h1>
    
-   <form>
+   <form action="/localserver" method="GET">
     <label for="name">Name</label>
-    <input type="text" id="name" name="name">
+    <input required type="text" id="name" name="name">
 
     <label for="email">Email</label>
-    <input type="email" id="email" name="email">
+    <input required type="email" id="email" name="email">
 
     <label for="password">Password</label>
     <input type="password" id="password" name="password">
@@ -26,7 +26,5 @@
 
     <button type="submit">Submit</button>
    </form>
-   
-   <a href="/">&lt;- Back to home</a>
 </body>
 </html>

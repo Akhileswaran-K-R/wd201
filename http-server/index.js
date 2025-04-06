@@ -37,11 +37,11 @@ http
     response.writeHeader(200, { "Content-Type": "text/html" });
 
     switch (url) {
-      case "/project.html":
+      case "/project":
         response.write(projectContent);
         break;
 
-      case "/registration.html":
+      case "/registration":
         response.write(registrationContent);
         break;
 

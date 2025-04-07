@@ -66,13 +66,13 @@ const todoList = () => {
     str = "";
     list.forEach((task) => {
       if (task.completed) {
-        str += `[X] ${task.title} `;
+        str += `[x] ${task.title}`;
       } else {
-        str += `[ ] ${task.title} `;
+        str += `[ ] ${task.title}`;
       }
 
       if (showDate) {
-        str += task.dueDate + "\n";
+        str += ` ${task.dueDate}\n`;
       } else {
         str += "\n";
       }
@@ -122,16 +122,13 @@ console.log("Overdue");
 var overdues = todos.overdue();
 var formattedOverdues = todos.toDisplayableList(overdues, true);
 console.log(formattedOverdues);
-console.log("\n");
 
-console.log("Due Today");
+console.log("\nDue Today");
 let itemsDueToday = todos.dueToday();
 let formattedItemsDueToday = todos.toDisplayableList(itemsDueToday);
 console.log(formattedItemsDueToday);
-console.log("\n");
 
-console.log("Due Later");
+console.log("\nDue Later");
 let itemsDueLater = todos.dueLater();
 let formattedItemsDueLater = todos.toDisplayableList(itemsDueLater, true);
 console.log(formattedItemsDueLater);
-console.log("\n\n");

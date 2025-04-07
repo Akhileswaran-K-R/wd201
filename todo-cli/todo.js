@@ -2,10 +2,8 @@ const todoList = () => {
   all = [];
   var dateToday = new Date();
   var date = Number(dateToday.getDate());
-  var month = Number(dateToday.getMonth());
+  var month = Number(dateToday.getMonth()) + 1;
   var year = Number(dateToday.getFullYear());
-  month++;
-  date--;
 
   const add = (todoItem) => {
     all.push(todoItem);
@@ -64,7 +62,7 @@ const todoList = () => {
     return arr;
   };
 
-  const toDisplayableList = (list, num = 0) => {
+  const toDisplayableList = (list, showDate = false) => {
     str = "";
     list.forEach((task) => {
       if (task.completed) {
@@ -73,7 +71,7 @@ const todoList = () => {
         str += `[ ] ${task.title} `;
       }
 
-      if (num === 1) {
+      if (showDate) {
         str += task.dueDate + "\n";
       } else {
         str += "\n";
@@ -122,7 +120,7 @@ console.log("My Todo-list\n");
 
 console.log("Overdue");
 var overdues = todos.overdue();
-var formattedOverdues = todos.toDisplayableList(overdues, 1);
+var formattedOverdues = todos.toDisplayableList(overdues, true);
 console.log(formattedOverdues);
 console.log("\n");
 
@@ -134,6 +132,6 @@ console.log("\n");
 
 console.log("Due Later");
 let itemsDueLater = todos.dueLater();
-let formattedItemsDueLater = todos.toDisplayableList(itemsDueLater, 1);
+let formattedItemsDueLater = todos.toDisplayableList(itemsDueLater, true);
 console.log(formattedItemsDueLater);
 console.log("\n\n");

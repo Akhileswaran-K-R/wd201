@@ -5,6 +5,7 @@ const todoList = () => {
   var month = Number(dateToday.getMonth());
   var year = Number(dateToday.getFullYear());
   month++;
+  date--;
 
   const add = (todoItem) => {
     all.push(todoItem);

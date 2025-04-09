@@ -1,9 +1,5 @@
 const todoList = () => {
   all = [];
-  var dateToday = new Date();
-  var date = Number(dateToday.getDate());
-  var month = Number(dateToday.getMonth()) + 1;
-  var year = Number(dateToday.getFullYear());
 
   const add = (todoItem) => {
     all.push(todoItem);
@@ -15,15 +11,7 @@ const todoList = () => {
   const overdue = () => {
     arr = [];
     all.forEach((task) => {
-      dueDate = task.dueDate.split("-").map((due) => {
-        return Number(due);
-      });
-
-      if (
-        year > dueDate[0] ||
-        (year === dueDate[0] && month > dueDate[1]) ||
-        (year === dueDate[0] && month === dueDate[1] && date > dueDate[2])
-      ) {
+      if (new Date().toISOString().slice(0, 10) > task.dueDate) {
         arr.push(task);
       }
     });
@@ -33,11 +21,7 @@ const todoList = () => {
   const dueToday = () => {
     arr = [];
     all.forEach((task) => {
-      dueDate = task.dueDate.split("-").map((due) => {
-        return Number(due);
-      });
-
-      if (year === dueDate[0] && month === dueDate[1] && date === dueDate[2]) {
+      if (new Date().toISOString().slice(0, 10) === task.dueDate) {
         arr.push(task);
       }
     });
@@ -47,15 +31,7 @@ const todoList = () => {
   const dueLater = () => {
     arr = [];
     all.forEach((task) => {
-      dueDate = task.dueDate.split("-").map((due) => {
-        return Number(due);
-      });
-
-      if (
-        year < dueDate[0] ||
-        (year === dueDate[0] && month < dueDate[1]) ||
-        (year === dueDate[0] && month === dueDate[1] && date < dueDate[2])
-      ) {
+      if (new Date().toISOString().slice(0, 10) < task.dueDate) {
         arr.push(task);
       }
     });
@@ -132,3 +108,5 @@ console.log("\nDue Later");
 let itemsDueLater = todos.dueLater();
 let formattedItemsDueLater = todos.toDisplayableList(itemsDueLater, true);
 console.log(formattedItemsDueLater);
+
+module.exports = todoList;

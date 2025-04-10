@@ -12,11 +12,6 @@ describe("TodoList Test Suite", () => {
     });
   });
 
-  test("Checks retrieval of due today items", () => {
-    let duesToday = dueToday();
-    expect(duesToday.length).toBe(1);
-  });
-
   test("Checks creating a new todo", () => {
     const todoItemCount = all.length;
     add({
@@ -34,6 +29,7 @@ describe("TodoList Test Suite", () => {
   });
 
   test("checks retrieval of overdue items", () => {
+    let num = overdue().length;
     add({
       title: "Test overdue",
       completed: false,
@@ -42,18 +38,30 @@ describe("TodoList Test Suite", () => {
         .slice(0, 10),
     });
     let overdues = overdue();
-    expect(overdues.length).toBe(1);
+    expect(overdues.length).toBe(num + 1);
+  });
+
+  test("Checks retrieval of due today items", () => {
+    let num = dueToday.length();
+    add({
+      title: "Test due today",
+      completed: false,
+      dueDate: new Date().toISOString().slice(0, 10),
+    });
+    let duesToday = dueToday();
+    expect(duesToday.length).toBe(num + 1);
   });
 
   test("Checks retrieval of due later items", () => {
+    let num = dueLater().length;
     add({
-      title: "Test overdue",
+      title: "Test due later",
       completed: false,
       dueDate: new Date(new Date().setDate(new Date().getDate() + 1))
         .toISOString()
         .slice(0, 10),
     });
     let duesLater = dueLater();
-    expect(duesLater.length).toBe(1);
+    expect(duesLater.length).toBe(num + 1);
   });
 });

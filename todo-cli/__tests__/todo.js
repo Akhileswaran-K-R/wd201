@@ -42,7 +42,7 @@ describe("TodoList Test Suite", () => {
   });
 
   test("Checks retrieval of due today items", () => {
-    let num = dueToday.length();
+    let num = dueToday().length;
     add({
       title: "Test due today",
       completed: false,

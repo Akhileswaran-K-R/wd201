@@ -38,7 +38,7 @@ const todoList = () => {
     return arr;
   };
 
-  const toDisplayableList = (list, showDate = false) => {
+  const toDisplayableList = (list) => {
     let str = "";
     list.forEach((task) => {
       if (task.completed) {
@@ -47,7 +47,7 @@ const todoList = () => {
         str += `[ ] ${task.title}`;
       }
 
-      if (showDate) {
+      if (task.dueDate != new Date().toISOString().slice(0, 10)) {
         str += ` ${task.dueDate}\n`;
       } else {
         str += "\n";
@@ -96,7 +96,7 @@ console.log("My Todo-list\n");
 
 console.log("Overdue");
 var overdues = todos.overdue();
-var formattedOverdues = todos.toDisplayableList(overdues, true);
+var formattedOverdues = todos.toDisplayableList(overdues);
 console.log(formattedOverdues);
 
 console.log("\nDue Today");
@@ -106,7 +106,7 @@ console.log(formattedItemsDueToday);
 
 console.log("\nDue Later");
 let itemsDueLater = todos.dueLater();
-let formattedItemsDueLater = todos.toDisplayableList(itemsDueLater, true);
+let formattedItemsDueLater = todos.toDisplayableList(itemsDueLater);
 console.log(formattedItemsDueLater);
 
 module.exports = todoList;

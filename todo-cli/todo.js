@@ -1,5 +1,5 @@
 const todoList = () => {
-  all = [];
+  let all = [];
 
   const add = (todoItem) => {
     all.push(todoItem);
@@ -9,7 +9,7 @@ const todoList = () => {
   };
 
   const overdue = () => {
-    arr = [];
+    let arr = [];
     all.forEach((task) => {
       if (new Date().toISOString().slice(0, 10) > task.dueDate) {
         arr.push(task);
@@ -19,7 +19,7 @@ const todoList = () => {
   };
 
   const dueToday = () => {
-    arr = [];
+    let arr = [];
     all.forEach((task) => {
       if (new Date().toISOString().slice(0, 10) === task.dueDate) {
         arr.push(task);
@@ -29,7 +29,7 @@ const todoList = () => {
   };
 
   const dueLater = () => {
-    arr = [];
+    let arr = [];
     all.forEach((task) => {
       if (new Date().toISOString().slice(0, 10) < task.dueDate) {
         arr.push(task);
@@ -39,7 +39,7 @@ const todoList = () => {
   };
 
   const toDisplayableList = (list, showDate = false) => {
-    str = "";
+    let str = "";
     list.forEach((task) => {
       if (task.completed) {
         str += `[x] ${task.title}`;
@@ -80,10 +80,10 @@ const formattedDate = (d) => {
 var dateToday = new Date();
 const today = formattedDate(dateToday);
 const yesterday = formattedDate(
-  new Date(new Date().setDate(dateToday.getDate() - 1))
+  new Date(new Date().setDate(dateToday.getDate() - 1)),
 );
 const tomorrow = formattedDate(
-  new Date(new Date().setDate(dateToday.getDate() + 1))
+  new Date(new Date().setDate(dateToday.getDate() + 1)),
 );
 
 todos.add({ title: "Submit assignment", dueDate: yesterday, completed: false });

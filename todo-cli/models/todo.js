@@ -100,8 +100,8 @@ module.exports = (sequelize, DataTypes) => {
       let dueDate =
         this.dueDate === new Date().toISOString().slice(0, 10)
           ? ""
-          : this.dueDate;
-      return `${this.id}. ${checkbox} ${this.title} ${dueDate}`;
+          : ` ${this.dueDate}`;
+      return `${this.id}. ${checkbox} ${this.title}${dueDate}`;
     }
   }
   Todo.init(

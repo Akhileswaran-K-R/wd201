@@ -13,4 +13,9 @@ export default defineConfig([
     files: ["**/*.{js,mjs,cjs}"],
     languageOptions: { globals: globals.browser },
   },
+
+  {
+    // Note: there should be no other properties in this object
+    ignores: ["models/*", "migrations/*"],
+  },
 ]);

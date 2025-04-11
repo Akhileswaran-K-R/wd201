@@ -1,0 +1,7 @@
+npm install sequelize pg pg-hstore
+npm install --save-dev sequelize-cli
+npx sequelize-cli init
+
+npx sequelize-cli db:create
+npx sequelize-cli model:generate --name Modelname --attributes atrributeName:type
+npx sequelize-cli db:migrate

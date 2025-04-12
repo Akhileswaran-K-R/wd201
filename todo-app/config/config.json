@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "Touchmate1",
-    "database": "todo_db_dev",
+    "database": "wd-todo-dev",
     "host": "127.0.0.1",
     "dialect": "postgres",
     "logging": false
@@ -10,7 +10,7 @@
   "test": {
     "username": "postgres",
     "password": "Touchmate1",
-    "database": "todo_tb_test",
+    "database": "wd-todo-test",
     "host": "127.0.0.1",
     "dialect": "postgres",
     "logging": false
@@ -18,7 +18,7 @@
   "production": {
     "username": "postgres",
     "password": "Touchmate1",
-    "database": "todo_tb_prod",
+    "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "postgres"
   }

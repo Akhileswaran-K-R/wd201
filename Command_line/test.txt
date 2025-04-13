@@ -1,0 +1,7 @@
+npm install --save-dev jest supertest
+
+"scripts": {
+  "pretest": "set NODE_ENV=test& npx sequelize-cli db:drop && set NODE_ENV=test& npx sequelize-cli db:create",
+  "test": "set NODE_ENV=test& jest --detectOpenHandles",
+  "prepare": "husky install"
+  }

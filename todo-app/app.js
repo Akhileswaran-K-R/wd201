@@ -1,10 +1,31 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 
 const express = require("express");
 const app = express();
 const { Todo } = require("./models");
 const bodyParser = require("body-parser");
+const path = require("path");
+
 app.use(bodyParser.json()); //for parsing the request body
+
+app.set("view engine", "ejs"); //set the ejs engine
+
+app.get("/", async (request, response) => {
+  const allTodos = await Todo.getTodos();
+  if (request.accepts("html")) {
+    response.render("index", {
+      allTodos,
+    }); //render the ejs  page to display
+  } else {
+    //for postman or other api checking
+    respond.json({
+      allTodos,
+    });
+  }
+});
+
+app.use(express.static(path.join(__dirname, "public"))); //for rendering static contents like css and js
 
 app.get("/todos", async (request, response) => {
   try {

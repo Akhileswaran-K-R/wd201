@@ -7,7 +7,6 @@
     "start:prod": "node index.js",
     "pretest": "set NODE_ENV=test& npx sequelize-cli db:drop && set NODE_ENV=test& npx sequelize-cli db:create",
     "test": "set NODE_ENV=test& jest --detectOpenHandles",
-    "prepare": "husky install"
   },
   "author": "Akhil <akhilarathi956@gmail.com>",
   "license": "ISC",

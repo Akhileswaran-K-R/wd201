@@ -1,0 +1,15 @@
+npm i husky --save-dev
+npx husky init
+echo "cd todo-cli && npm test" > .husky/pre-commit
+
+npm install lint-staged prettier --save-dev
+npm init @eslint/config
+
+"lint-staged": {
+  "*.js": [
+    "eslint",
+    "prettier --write ."
+  ]
+}
+
+echo "npx lint-staged" >> .husky/pre-commit

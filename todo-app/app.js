@@ -9,6 +9,8 @@ const path = require("path");
 
 app.use(bodyParser.json()); //for parsing the request body
 
+app.use(express.urlencoded({ extended: false })); //for taking the details from url
+
 app.set("view engine", "ejs"); //set the ejs engine
 
 app.get("/", async (request, response) => {
@@ -43,11 +45,11 @@ app.get("/todos", async (request, response) => {
 app.post("/todos", async (request, response) => {
   console.log("Creating a todo", request.body);
   try {
-    const todo = await Todo.addTodo({
+    await Todo.addTodo({
       title: request.body.title,
       dueDate: request.body.dueDate,
     });
-    return response.json(todo);
+    return response.redirect("/");
   } catch (error) {
     console.error(error);
     return response.status(422).json(error);

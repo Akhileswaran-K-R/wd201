@@ -26,7 +26,11 @@ app.get("/", async (request, response) => {
     }); //render the ejs  page to display
   } else {
     //for postman or other api checking
-    return response.json(allTodos);
+    return response.json({
+      overdueItems,
+      dueTodayItems,
+      dueLaterItems,
+    });
   }
 });
 

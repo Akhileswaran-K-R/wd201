@@ -6,6 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./css/styles.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script>
+      function updateTodo(id){
+        fetch(`/todos/${id}/markAsCompleted`,{
+          method: "put",
+          headers: {
+            "Content-type": "application/json"
+          }
+        }).then((res) =>{
+          if(res.ok){
+            window.location.reload();
+          }
+        }).catch((error)=>{
+          console.error(error);
+        });
+      }
+
+      function deleteTodo(id){
+        fetch(`/todos/${id}`,{
+          method: "delete",
+          headers: {
+            "Content-Type": "application/json" 
+          }
+        }).then((res)=>{
+          if(res.ok){
+            window.location.reload();
+          }
+        }).catch((error)=>{
+          console.error(error);
+        })
+      }
+    </script>
     <title>Todo Manager</title>
   </head>
 

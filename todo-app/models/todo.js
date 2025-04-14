@@ -12,11 +12,42 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static addTodo({ title, dueDate }) {
-      return this.create({ title: title, dueDate: dueDate, completed: false });
+      return this.create({
+        title: title,
+        dueDate: dueDate,
+        completed: false,
+      });
     }
 
     static getTodos() {
       return this.findAll();
+    }
+
+    static async overdue() {
+      let allTodos = await this.getTodos();
+      const date = new Date().toISOString().slice(0, 10);
+
+      return allTodos.filter((todo) => {
+        return todo.dueDate < date;
+      });
+    }
+
+    static async dueToday() {
+      let allTodos = await this.getTodos();
+      const date = new Date().toISOString().slice(0, 10);
+
+      return allTodos.filter((todo) => {
+        return todo.dueDate === date;
+      });
+    }
+
+    static async dueLater() {
+      let allTodos = await this.getTodos();
+      const date = new Date().toISOString().slice(0, 10);
+
+      return allTodos.filter((todo) => {
+        return todo.dueDate > date;
+      });
     }
 
     markAsCompleted() {

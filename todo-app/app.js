@@ -12,16 +12,19 @@ app.use(bodyParser.json()); //for parsing the request body
 app.set("view engine", "ejs"); //set the ejs engine
 
 app.get("/", async (request, response) => {
-  const allTodos = await Todo.getTodos();
+  const overdueItems = await Todo.overdue();
+  const dueTodayItems = await Todo.dueToday();
+  const dueLaterItems = await Todo.dueLater();
+
   if (request.accepts("html")) {
     response.render("index", {
-      allTodos,
+      overdueItems,
+      dueTodayItems,
+      dueLaterItems,
     }); //render the ejs  page to display
   } else {
     //for postman or other api checking
-    respond.json({
-      allTodos,
-    });
+    return response.json(allTodos);
   }
 });
 

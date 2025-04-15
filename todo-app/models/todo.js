@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       const date = new Date().toISOString().slice(0, 10);
 
       return allTodos.filter((todo) => {
-        return todo.dueDate < date;
+        return todo.dueDate < date && !todo.completed;
       });
     }
 
@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
       const date = new Date().toISOString().slice(0, 10);
 
       return allTodos.filter((todo) => {
-        return todo.dueDate === date;
+        return todo.dueDate === date && !todo.completed;
       });
     }
 
@@ -46,12 +46,20 @@ module.exports = (sequelize, DataTypes) => {
       const date = new Date().toISOString().slice(0, 10);
 
       return allTodos.filter((todo) => {
-        return todo.dueDate > date;
+        return todo.dueDate > date && !todo.completed;
       });
     }
 
-    markAsCompleted() {
-      return this.update({ completed: true });
+    static async completed() {
+      let allTodos = await this.getTodos();
+
+      return allTodos.filter((todo) => {
+        return todo.completed;
+      });
+    }
+
+    setCompletionStatus(status) {
+      return this.update({ completed: !status });
     }
   }
   Todo.init(

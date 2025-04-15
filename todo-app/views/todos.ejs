@@ -21,8 +21,8 @@
     </p>
   </div>
 
-  <% for(var i=0; i < overdueItems.length; i++){ %>
-    <ul class="list-none">
+  <ul class="list-none">
+    <% for(var i=0; i < overdueItems.length; i++){ %>
       <li class="Todo-item">
         <div class="flex items-center w-fit my-2 px-2 py-1 rounded hover:bg-purple-50">
           <input id="todo-checkbox-<%= overdueItems[i].id %>" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-100" <%= overdueItems[i].completed ? "checked" : "" %> onclick="updateTodo(<%= overdueItems[i].id %>,<%= overdueItems[i].completed %>)">
@@ -38,8 +38,8 @@
           </a>   
         </div>
       </li>
-    </ul>
-  <% } %>
+    <% } %>
+  </ul>
   
   <div class="flex mt-2">
     <h5>Due Today</h5>

@@ -5,11 +5,16 @@ const express = require("express");
 const app = express();
 const { Todo } = require("./models");
 const bodyParser = require("body-parser");
+const csrf = require("csurf");
+const cookieParser = require("cookie-parser");
 const path = require("path");
 
 app.use(bodyParser.json()); //for parsing the request body
 
 app.use(express.urlencoded({ extended: false })); //for taking the details from url
+
+app.use(cookieParser("shh! some secret string"));
+app.use(csrf({ cookie: true }));
 
 app.set("view engine", "ejs"); //set the ejs engine
 
@@ -23,6 +28,7 @@ app.get("/", async (request, response) => {
       overdueItems,
       dueTodayItems,
       dueLaterItems,
+      csrfToken: request.csrfToken(),
     }); //render the ejs  page to display
   } else {
     //for postman or other api checking

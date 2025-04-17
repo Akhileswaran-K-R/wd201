@@ -95,10 +95,10 @@ passport.deserializeUser((id, done) => {
 app.set("view engine", "ejs"); //set the ejs engine
 
 app.get("/", async (request, response) => {
-  if (connectEnsureLogin.ensureLoggedIn()) {
+  if (request.user) {
     return response.redirect("/todos");
   } else {
-    response.render("index", {
+    return response.render("index", {
       title: "Todo application",
       csrfToken: request.csrfToken(),
     });

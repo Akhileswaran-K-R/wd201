@@ -14,8 +14,11 @@ const connectEnsureLogin = require("connect-ensure-login");
 const session = require("express-session");
 const LocalStrategy = require("passport-local");
 const bcrypt = require("bcrypt");
-
 const saltRounds = 10;
+
+const flash = require("connect-flash");
+app.set("views", path.join(__dirname, "views")); //set the views globally
+app.use(flash());
 
 app.use(bodyParser.json()); //for parsing the request body
 
@@ -34,6 +37,11 @@ app.use(
   }),
 );
 
+app.use((request, response, next) => {
+  response.locals.messages = request.flash(); //allows every ejs files to use flash
+  next();
+});
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -51,11 +59,15 @@ passport.use(
         },
       })
         .then(async (user) => {
-          const result = await bcrypt.compare(password, user.password);
-          if (result) {
-            return done(null, user);
+          if (user) {
+            const result = await bcrypt.compare(password, user.password);
+            if (result) {
+              return done(null, user);
+            } else {
+              return done(null, false, { message: "Invalid password" });
+            }
           } else {
-            return done("Invalid password");
+            return done(null, false, { message: "Invalid username" });
           }
         })
         .catch((error) => {
@@ -143,13 +155,14 @@ app.post("/users", async (request, response) => {
     //login is a method attached to request by passport
     request.login(user, (err) => {
       if (err) {
-        console.log(err);
+        throw err;
       }
       return response.redirect("/todos");
     });
   } catch (error) {
-    console.error(error);
-    return response.status(402).json(error);
+    const msg = error.errors[0].message;
+    request.flash("error", msg);
+    return response.redirect("/signup");
   }
 });
 
@@ -172,7 +185,10 @@ app.get("/signout", (request, response, next) => {
 
 app.post(
   "/session",
-  passport.authenticate("local", { failureRediect: "/login" }),
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureFlash: true,
+  }),
   (request, response) => {
     return response.redirect("/todos");
   },
@@ -191,8 +207,9 @@ app.post(
       });
       return response.redirect("/todos");
     } catch (error) {
-      console.error(error);
-      return response.status(422).json(error);
+      const msg = error.errors[0].message;
+      request.flash("error", msg);
+      return response.redirect("/todos");
     }
   },
 );

@@ -58,7 +58,9 @@
     <div class="grid grid-cols-6">
       <div class="col-start-3 col-span-2">
         <%- include('header.ejs') %>
-        <a href="/signout">Sign out</a>
+        <button>
+          <a href="/signout">signout</a>
+        </button>
         
         <form action="/todos" method="post">
           <input type="hidden" name="_csrf" value="<%= csrfToken %>">
@@ -76,10 +78,10 @@
         </form>
 
         <div>
-          <%- include('todo.ejs', {title: "Overdue",data: overdueItems}) %>
-          <%- include('todo.ejs', {title: "Due Today",data: dueTodayItems}) %>
-          <%- include('todo.ejs', {title: "Due Later",data: dueLaterItems}) %>
-          <%- include('todo.ejs', {title: "Completed Items",data: completedItems}) %>
+          <%- include('todo.ejs', {title: "Overdue",data: overdueItems,name: "overdue"}) %>
+          <%- include('todo.ejs', {title: "Due Today",data: dueTodayItems,name: "due-today"}) %>
+          <%- include('todo.ejs', {title: "Due Later",data: dueLaterItems,name: "due-later"}) %>
+          <%- include('todo.ejs', {title: "Completed Items",data: completedItems,name: "completed"}) %>
         </div>
 
         <%- include('notifications.ejs') %>

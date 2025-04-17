@@ -95,10 +95,14 @@ passport.deserializeUser((id, done) => {
 app.set("view engine", "ejs"); //set the ejs engine
 
 app.get("/", async (request, response) => {
-  response.render("index", {
-    title: "Todo application",
-    csrfToken: request.csrfToken(),
-  });
+  if (connectEnsureLogin.ensureLoggedIn()) {
+    return response.redirect("/todos");
+  } else {
+    response.render("index", {
+      title: "Todo application",
+      csrfToken: request.csrfToken(),
+    });
+  }
 });
 
 app.use(express.static(path.join(__dirname, "public"))); //for rendering static contents like css and js

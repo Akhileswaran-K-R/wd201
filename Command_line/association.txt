@@ -1,0 +1,6 @@
+First step
+add a column as a foreign key
+npx sequelize-cli migration:create --name add-user-id-in-todos: This creates a migration file. Inside that update the column 
+
+Second step
+Define association or relations between models

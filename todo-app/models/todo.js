@@ -9,22 +9,30 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Todo.belongsTo(models.User, {
+        foreignKey: "userId",
+      });
     }
 
-    static addTodo({ title, dueDate }) {
+    static addTodo({ title, dueDate, userId }) {
       return this.create({
         title: title,
         dueDate: dueDate,
         completed: false,
+        userId,
       });
     }
 
-    static getTodos() {
-      return this.findAll();
+    static getTodos(userId) {
+      return this.findAll({
+        where: {
+          userId,
+        },
+      });
     }
 
-    static async overdue() {
-      let allTodos = await this.getTodos();
+    static async overdue(userId) {
+      let allTodos = await this.getTodos(userId);
       const date = new Date().toISOString().slice(0, 10);
 
       return allTodos.filter((todo) => {
@@ -32,8 +40,8 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    static async dueToday() {
-      let allTodos = await this.getTodos();
+    static async dueToday(userId) {
+      let allTodos = await this.getTodos(userId);
       const date = new Date().toISOString().slice(0, 10);
 
       return allTodos.filter((todo) => {
@@ -41,8 +49,8 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    static async dueLater() {
-      let allTodos = await this.getTodos();
+    static async dueLater(userId) {
+      let allTodos = await this.getTodos(userId);
       const date = new Date().toISOString().slice(0, 10);
 
       return allTodos.filter((todo) => {
@@ -50,8 +58,8 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    static async completed() {
-      let allTodos = await this.getTodos();
+    static async completed(userId) {
+      let allTodos = await this.getTodos(userId);
 
       return allTodos.filter((todo) => {
         return todo.completed;
@@ -60,6 +68,15 @@ module.exports = (sequelize, DataTypes) => {
 
     setCompletionStatus(status) {
       return this.update({ completed: !status });
+    }
+
+    static async remove(id, userId) {
+      return this.destroy({
+        where: {
+          id,
+          userId,
+        },
+      });
     }
   }
   Todo.init(

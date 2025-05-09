@@ -1,6 +1,0 @@
-npm install ejs --save
-npm install nodemon --save-dev
-
-"scripts": {
-  "start": "nodemon -e js,ejs"
-}
